@@ -1,0 +1,177 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API для збереження вимірювань (Чиста архітектура)",
+        "title": "Measurements API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/measurements": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Measurements"
+                ],
+                "summary": "Read Measurements",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Measurement"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "Measurements"
+                ],
+                "summary": "Create Measurement",
+                "parameters": [
+                    {
+                        "description": "Дані вимірювання",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Measurement"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Дані успішно збережено!",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/measurements/{m_id}": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "Measurements"
+                ],
+                "summary": "Update Measurement",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID сенсора",
+                        "name": "m_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Нове значення",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Measurement"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Оновлено",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "produces": [
+                    "text/plain"
+                ],
+                "tags": [
+                    "Measurements"
+                ],
+                "summary": "Delete Measurement",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID сенсора",
+                        "name": "m_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Видалено",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/measurements/{m_id}/verify": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Measurements"
+                ],
+                "summary": "Verify Measurement",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID сенсора для перевірки останнього запису",
+                        "name": "m_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.Measurement": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "sensor_id": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number"
+                }
+            }
+        }
+    }
+}

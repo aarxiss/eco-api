@@ -1,0 +1,115 @@
+basePath: /
+definitions:
+  model.Measurement:
+    properties:
+      created_at:
+        type: string
+      sensor_id:
+        type: string
+      value:
+        type: number
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API для збереження вимірювань (Чиста архітектура)
+  title: Measurements API
+  version: "1.0"
+paths:
+  /measurements:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Measurement'
+            type: array
+      summary: Read Measurements
+      tags:
+      - Measurements
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Дані вимірювання
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.Measurement'
+      produces:
+      - text/plain
+      responses:
+        "201":
+          description: Дані успішно збережено!
+          schema:
+            type: string
+      summary: Create Measurement
+      tags:
+      - Measurements
+  /measurements/{m_id}:
+    delete:
+      parameters:
+      - description: ID сенсора
+        in: path
+        name: m_id
+        required: true
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: Видалено
+          schema:
+            type: string
+      summary: Delete Measurement
+      tags:
+      - Measurements
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID сенсора
+        in: path
+        name: m_id
+        required: true
+        type: string
+      - description: Нове значення
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/model.Measurement'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: Оновлено
+          schema:
+            type: string
+      summary: Update Measurement
+      tags:
+      - Measurements
+  /measurements/{m_id}/verify:
+    get:
+      parameters:
+      - description: ID сенсора для перевірки останнього запису
+        in: path
+        name: m_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Verify Measurement
+      tags:
+      - Measurements
+swagger: "2.0"

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-Monitor Blockchain Pro</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --accent-color: #38bdf8;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            border: 1px solid var(--accent-color);
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        
+        .table-container { 
+            margin-top: 40px; 
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+        }
+        
+        h2 { font-size: 1.2rem; margin-bottom: 15px; color: var(--text-color); }
+        
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        th { color: var(--accent-color); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .status-trusted { color: var(--success-color); font-weight: bold; }
+        .status-checking { color: var(--warning-color); font-style: italic; }
+
+        .footer-info {
+            margin-top: 30px;
+            font-size: 0.8rem;
+            text-align: center;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Eco-Monitor Dashboard </h1>
+            <div class="status-badge">Blockchain Verified: Ethereum Sepolia</div>
+        </header>
+
+        <div class="chart-wrapper">
+            <canvas id="ecoChart"></canvas>
+        </div>
+
+        <div class="table-container">     
+            <h2>Останні перевірки </h2>
+            <table id="verificationTable">
+                <thead>
+                    <tr>
+                        <th>Сенсор</th>
+                        <th>Значення</th>
+                        <th>Статус блокчейну</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    </tbody>
+            </table>
+        </div>
+
+        <div class="footer-info">
+            Оновлення даних кожні 5 секунд • Зв'язок з Go API встановлено
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
