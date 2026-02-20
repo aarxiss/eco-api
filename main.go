@@ -30,7 +30,6 @@ func (lrw *loggingResponseWriter) WriteHeader(code int) {
 
 func loggingMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// 1. Встановлюємо заголовки CORS ВІДРАЗУ
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
 		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
@@ -113,7 +112,6 @@ func main() {
 	mux.HandleFunc("GET /measurements/{m_id}/verify", measHandler.VerifyMeasurement)
 	mux.HandleFunc("GET /swagger/", httpSwagger.WrapHandler)
 
-	// Огортаємо наш роутер у middleware
 	loggedMux := loggingMiddleware(mux)
 
 	log.Println("Сервер працює на порту 8080...")
