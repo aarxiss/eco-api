@@ -63,9 +63,8 @@ setInterval(fetchData, 5000);
 
 async function verifyAndFillTable(recentData) {
     const tableBody = document.getElementById('tableBody');
-    tableBody.innerHTML = ''; // Очищуємо
+    tableBody.innerHTML = ''; 
 
-    // Беремо останні 5 для таблиці
     const top5 = recentData.slice(-5).reverse();
 
     for (const m of top5) {
@@ -79,7 +78,6 @@ async function verifyAndFillTable(recentData) {
         `;
         tableBody.appendChild(row);
 
-        // Робимо запит на валідацію до нашого API
         try {
             const vRes = await fetch(`http://localhost:8080/measurements/${sensorId}/verify`);
             const vData = await vRes.json();
