@@ -57,7 +57,6 @@ func Init(rpcURL, privKeyHex, contractAddrHex string) (*AnchorClient, error) {
 }
 
 func (ac *AnchorClient) AnchorData(ctx context.Context, sensorID string, value float64) (string, error) {
-	// 1. Створюємо унікальний рядок з показників
 	dataString := fmt.Sprintf("%s:%.2f", sensorID, value)
 
 	hash := sha256.Sum256([]byte(dataString))
@@ -94,14 +93,12 @@ func (ac *AnchorClient) AnchorData(ctx context.Context, sensorID string, value f
 	return signedTx.Hash().Hex(), nil
 }
 
-// IsAnchored перевіряє, чи захешовані ці дані в блокчейні
+і
 func (ac *AnchorClient) IsAnchored(ctx context.Context, dataHash [32]byte) (bool, error) {
-	// Викликаємо функцію "isAnchored" нашого смарт-контракту
+	
 	var out []interface{}
 	err := ac.parsedABI.UnpackIntoInterface(&out, "isAnchored", []byte{}) // Отримуємо результат
 
-	// Але простіше викликати метод через CallOpts
-	// (Для простоти ми використовуємо Pack, щоб створити запит)
 	data, err := ac.parsedABI.Pack("isAnchored", dataHash)
 	if err != nil {
 		return false, err
